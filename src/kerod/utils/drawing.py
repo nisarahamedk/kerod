@@ -122,7 +122,7 @@ def draw_bounding_boxes(image,
         boxes = boxes.numpy()
 
     plt.figure(figsize=(15, 15))
-    plt.imshow(image.astype(np.uint8))
+    plt.imshow(image.astype(np.uint8), cmap="gray")
     axes = plt.gca()
 
     if isinstance(boxes, tf.Tensor):

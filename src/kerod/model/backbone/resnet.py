@@ -136,8 +136,9 @@ def ResNet(stack_fn: Callable,
 
     bn_axis = 3 if backend.image_data_format() == 'channels_last' else 1
 
-    x = layers.Lambda(preprocessing_func, name="preprocess_input")(img_input)
-    x = layers.Lambda(padd_for_aligning_pixels, name="padd_for_aligning_pixels")(x)
+    # pre-process the image based on imagenet stats, skip this as we have normalized grayscale images and training from scratch
+    # x = layers.Lambda(preprocessing_func, name="preprocess_input")(img_input)
+    x = layers.Lambda(padd_for_aligning_pixels, name="padd_for_aligning_pixels")(img_input)
     x = layers.Conv2D(64, 7, strides=2, use_bias=use_bias, name='conv1_conv')(x)
 
     if not preact:

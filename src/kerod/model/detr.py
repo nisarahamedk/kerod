@@ -348,7 +348,7 @@ class DeTr(tf.keras.Model):
 class DeTrResnet50(DeTr):
 
     def __init__(self, num_classes, num_queries=100, **kwargs):
-        resnet = ResNet50(input_shape=[None, None, 3], weights='imagenet')
+        resnet = ResNet50(input_shape=[None, None, 1], weights=None)
         super().__init__(num_classes, resnet, num_queries=num_queries, **kwargs)
 
 
