@@ -216,7 +216,7 @@ class FasterRcnnFPN(tf.keras.Model):
 class FasterRcnnFPNResnet50Caffe(FasterRcnnFPN):
 
     def __init__(self, num_classes, **kwargs):
-        resnet = ResNet50(input_shape=[None, None, 3], weights='imagenet')
+        resnet = ResNet50(input_shape=[None, None, 1], weights=None)
         super().__init__(num_classes, resnet, **kwargs)
 
 
