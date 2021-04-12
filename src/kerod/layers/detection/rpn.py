@@ -165,7 +165,7 @@ class RegionProposalNetwork(AbstractDetectionHead):
         ## Compute metrics
         recall = compute_rpn_metrics(y_true[BoxField.LABELS], classification_pred,
                                      weights[BoxField.LABELS])
-        self.add_metric(recall, name='rpn_recall', aggregation='mean')
+        self.add_metric(tf.cast(recall, tf.float32), name='rpn_recall', aggregation='mean')
 
         # All the boxes which are not -1 can be sampled
         labels = y_true[BoxField.LABELS] > 0
