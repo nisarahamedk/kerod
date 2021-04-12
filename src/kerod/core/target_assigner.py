@@ -250,7 +250,7 @@ class TargetAssigner:
         A tensor of shape [batch_size, num_anchors] representing classification weights.
         """
         indicator = matched_labels < 0
-        print(indicator.dtype, self.negative_class_weight.dtype, groundtruth_weights.dtype)
+
         weights = tf.where(indicator, self.negative_class_weight, groundtruth_weights)
         indicator = matched_labels == 0
         weights = tf.where(indicator, self.positive_class_weight, weights)
