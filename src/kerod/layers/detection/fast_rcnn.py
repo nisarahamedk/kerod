@@ -245,7 +245,11 @@ class FastRCNN(AbstractDetectionHead):
         localization_pred = tf.reshape(localization_pred, [-1, 4])
 
         extracted_localization_pred = tf.boolean_mask(localization_pred, one_hot_targets > 0)
-        extracted_localization_pred = tf.reshape(extracted_localization_pred, (batch_size, -1, 4))
+        try:
+            extracted_localization_pred = tf.reshape(extracted_localization_pred, (batch_size, -1, 4))
+        except:
+            pass
+            raise
 
         y_pred = {BoxField.LABELS: classification_pred, BoxField.BOXES: extracted_localization_pred}
 
