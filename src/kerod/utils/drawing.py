@@ -34,7 +34,8 @@ class BoxDrawer:
                  labels: Union[np.array, List[List[int]], tf.Tensor],
                  scores: Union[np.array, List[List[float]], tf.Tensor],
                  num_valid_detections: Union[np.array, List[int], tf.Tensor],
-                 resize=True):
+                 resize=True,
+                 labels_to_draw: List[str] = None):
         """Outputs a copy of images but draws on top of the pixels zero or more bounding boxes specified
         by the locations in boxes. The coordinates of the each bounding box in boxes are encoded as
         [y_min, x_min, y_max, x_max]. The bounding box coordinates can be:
@@ -85,7 +86,8 @@ class BoxDrawer:
                                 labels=labels,
                                 num_valid_detections=nvd,
                                 resize=resize,
-                                colors=colors)
+                                colors=colors,
+                                labels_to_draw=labels_to_draw)
 
 
 def draw_bounding_boxes(image,
@@ -94,7 +96,8 @@ def draw_bounding_boxes(image,
                         scores: np.array = None,
                         num_valid_detections: int = None,
                         colors: List[str] = None,
-                        resize=True):
+                        resize=True,
+                        labels_to_draw: List[str]=None):
     """Outputs a copy of images but draws on top of the pixels zero or more bounding boxes specified
     by the locations in boxes. The coordinates of the each bounding box in boxes are encoded as
     [y_min, x_min, y_max, x_max]. The bounding box coordinates can be:
@@ -136,6 +139,9 @@ def draw_bounding_boxes(image,
         boxes = boxes[:num_valid_detections]
 
     for i, box in enumerate(boxes):
+        if labels_to_draw is not None:
+            if labels[i] not in labels_to_draw:
+                continue
         x_y = (box[1], box[0])
         width = box[3] - box[1]
         height = box[2] - box[0]
