@@ -86,7 +86,7 @@ class BoxDrawer:
                                 labels=labels,
                                 num_valid_detections=nvd,
                                 resize=resize,
-                                colors=colors,
+                                colors=None,
                                 labels_to_draw=labels_to_draw)
 
 
